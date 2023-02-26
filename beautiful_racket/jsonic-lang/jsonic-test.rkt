@@ -9,6 +9,7 @@
     "key-2": false,
     "key-3": {"subkey": 21}
   },
+  @$ (+ 1 1) $@,
   // a line comment
   @$ 'null $@,
   @$ (/ 8 4) $@,
