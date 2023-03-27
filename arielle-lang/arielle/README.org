@@ -1,13 +1,13 @@
 * Arielle language
 ** Overview
-The premise of the arielle language, is to wrap Markdown with markup for animations.
+The premise of the arielle language, is to wrap markdown with markup for animations.
 
 Example:
 
 #+begin_src markdown
-  # This is Markdown. (this is a header)
+  # This is markdown. (this is a header)
 
-  This is normal Markdown with *italics*, **bold**, etc...
+  This is normal markdown with *italics*, **bold**, etc...
 
   $type{This is arielle getting typed out dynamically with *italics*, **bold**, etc...}
 #+end_src
@@ -28,14 +28,14 @@ Why shouldn't there be an ergonomic way to insert animations into website markup
 Her birthday is coming up, and I always try to make something for her for her birthday.
 This would be a cool birthday present.
 Thus, the =arielle= language: a language for animated markup.
-(In Markdown, for the non-animated parts)
+(In markdown, for the non-animated parts)
 
 ** Design
-=arielle= is supposed to be Markdown for the static parts, and use a custom syntax for the dynamic parts.
+=arielle= is supposed to be markdown for the static parts, and use a custom syntax for the dynamic parts.
 How can we accomplish that?
 
-*** Parse Markdown, and then parse =arielle=
-We could parse Markdown to a tree using the existing [[https://docs.racket-lang.org/markdown/][Racket Markdown]] reader, and then re-parse the parse tree, inserting =arielle= nodes.
+*** Parse markdown and then parse =arielle=
+We could parse markdown to a tree using the existing [[https://docs.racket-lang.org/markdown/][Racket markdown]] reader, and then re-parse the parse tree, inserting =arielle= nodes.
 
 Pros:
 1. Split up the parsing steps.
@@ -77,3 +77,11 @@ Seems like it doesn't really work:
 #+end_src
 
 I also tested on [[https://markdownlivepreview.com/]], with the same results. So maybe we just say it isn't possible in =arielle=? 
+
+In that case we could [[*Parse markdown and then parse =arielle=][Parse markdown and then parse =arielle=]].
+That's still kind of nasty though, right?
+We'd rather not parse twice if we can help it.
+
+We can't go all the way [[https://github.com/nuts4nuts4nuts/12lang/tree/main/beautiful_racket/jsonic-lang][jsonic]] because =jsonic= compiled to json.
+We want to compile to HTML, not markdown.
+Going to sleep on it.
