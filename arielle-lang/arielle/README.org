@@ -44,4 +44,36 @@ Pros:
 Cons:
 1. All =arielle= blocks have to be within markdown blocks?
    It seems like it would get really complicated to try to figure out parsing them across multiple markdown blocks
-2. 
+
+What do we do about a situation like this:
+
+#+begin_src markdown
+  Where I have some markdown **syntax $jiggle{interspersed with** `arielle`}
+#+end_src
+
+What should the parse-tree look like in that situation?
+
+What does markdown do about similar situations?
+Seems like it doesn't really work:
+
+#+begin_src racket
+  ;; Putting markup entirely within other markup works fine
+
+  tokenizer.rkt/test> (define xs (parse-markdown "How do we handle *interspersed **text in** here?*"))
+  tokenizer.rkt/test> xs
+  '((p
+     ()
+     "How do we handle "
+     (em () "interspersed " (strong () "text in") " here?")))
+
+  ;; But interspersed markup is messed up
+  tokenizer.rkt/test> (define xs (parse-markdown "How do we handle *interspersed __text* in__ here?"))
+  tokenizer.rkt/test> xs
+  '((p
+     ()
+     "How do we handle *interspersed "
+     (strong () "text* in")
+     " here?"))
+#+end_src
+
+So maybe we just say it isn't possible in =arielle=? 
