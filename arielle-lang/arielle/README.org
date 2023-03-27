@@ -48,7 +48,7 @@ Cons:
 What do we do about a situation like this:
 
 #+begin_src markdown
-  Where I have some markdown **syntax $jiggle{interspersed with** `arielle`}
+  Where I have some markdown **syntax $wiggle{interspersed with** `arielle`}
 #+end_src
 
 What should the parse-tree look like in that situation?
@@ -76,4 +76,4 @@ Seems like it doesn't really work:
      " here?"))
 #+end_src
 
-So maybe we just say it isn't possible in =arielle=? 
+I also tested on [[https://markdownlivepreview.com/]], with the same results. So maybe we just say it isn't possible in =arielle=? 
