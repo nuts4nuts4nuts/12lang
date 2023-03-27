@@ -1,0 +1,47 @@
+* Arielle language
+** Overview
+The premise of the arielle language, is to wrap Markdown with markup for animations.
+
+Example:
+
+#+begin_src markdown
+  # This is Markdown. (this is a header)
+
+  This is normal Markdown with *italics*, **bold**, etc...
+
+  $type{This is arielle getting typed out dynamically with *italics*, **bold**, etc...}
+#+end_src
+
+** Background
+Arielle has a [[https://www.ariellemcmanus.com][personal website]], mostly for her writing work.
+She wanted to put a poem on the front page of the website.
+She didn't want the poem to just sit there though, she wanted it to be a spectacle - an event.
+She wanted it to look as though she was typing the poem out letter-by-letter for whoever visited the site.
+
+She came to me for advice.
+I thought we could accomplish this effect with [[https://www.w3schools.com/css/css3_animations.asp][CSS animations]].
+It turned out to be too much of a pain in the butt.
+We ended up just recording her typing out the poem, and turning that into a GIF.
+
+Still, the idea has stuck in my head.
+Why shouldn't there be an ergonomic way to insert animations into website markup?
+Her birthday is coming up, and I always try to make something for her for her birthday.
+This would be a cool birthday present.
+Thus, the =arielle= language: a language for animated markup.
+(In Markdown, for the non-animated parts)
+
+** Design
+=arielle= is supposed to be Markdown for the static parts, and use a custom syntax for the dynamic parts.
+How can we accomplish that?
+
+*** Parse Markdown, and then parse =arielle=
+We could parse Markdown to a tree using the existing [[https://docs.racket-lang.org/markdown/][Racket Markdown]] reader, and then re-parse the parse tree, inserting =arielle= nodes.
+
+Pros:
+1. Split up the parsing steps.
+   This allows me to not have to think about markdown syntax in my reader.
+
+Cons:
+1. All =arielle= blocks have to be within markdown blocks?
+   It seems like it would get really complicated to try to figure out parsing them across multiple markdown blocks
+2. 
