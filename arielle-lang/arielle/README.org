@@ -58,7 +58,6 @@ Seems like it doesn't really work:
 
 #+begin_src racket
   ;; Putting markup entirely within other markup works fine
-
   tokenizer.rkt/test> (define xs (parse-markdown "How do we handle *interspersed **text in** here?*"))
   tokenizer.rkt/test> xs
   '((p
@@ -84,4 +83,3 @@ We'd rather not parse twice if we can help it.
 
 We can't go all the way [[https://github.com/nuts4nuts4nuts/12lang/tree/main/beautiful_racket/jsonic-lang][jsonic]] because =jsonic= compiled to json.
 We want to compile to HTML, not markdown.
-Going to sleep on it.
