@@ -77,7 +77,7 @@ Seems like it doesn't really work:
 
 I also tested on [[https://markdownlivepreview.com/]], with the same results. So maybe we just say it isn't possible in =arielle=? 
 
-In that case we could [[*Parse markdown and then parse =arielle=][Parse markdown and then parse =arielle=]].
+In that case we could [[*Parse markdown and then parse =arielle=][Parse markdown and then parse arielle]].
 That's still kind of nasty though, right?
 We'd rather not parse twice if we can help it.
 
