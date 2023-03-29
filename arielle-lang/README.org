@@ -84,7 +84,7 @@ We'd rather not parse twice if we can help it.
 We can't go all the way [[https://github.com/nuts4nuts4nuts/12lang/tree/main/beautiful_racket/jsonic-lang][jsonic]] because =jsonic= compiled to json.
 We want to compile to HTML, not markdown.
 
-*** /Compile =arielle= to markdown/, then compile markdown
+*** /Compile arielle to markdown/, then compile markdown
 
 Okay, we still don't love two passes of parsing, but I'm on a very limited schedule here.
 What if we compile =arielle= to markdown, replacing the =arielle= markup with HTML and associated CSS, and then pass that on to be compiled as markdown?
