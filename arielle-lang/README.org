@@ -83,3 +83,57 @@ We'd rather not parse twice if we can help it.
 
 We can't go all the way [[https://github.com/nuts4nuts4nuts/12lang/tree/main/beautiful_racket/jsonic-lang][jsonic]] because =jsonic= compiled to json.
 We want to compile to HTML, not markdown.
+
+*** /Compile =arielle= to markdown/, then compile markdown
+
+Okay, we still don't love two passes of parsing, but I'm on a very limited schedule here.
+What if we compile =arielle= to markdown, replacing the =arielle= markup with HTML and associated CSS, and then pass that on to be compiled as markdown?
+This lets us mostly do the =jsonic= thing, where we just pass along every character that's not relevant to =arielle= markup.
+HTML /should/ pass through markdown. Let's test that here to be sure.
+
+#+begin_src racket
+  > (define xs (parse-markdown "How does markdown handle *inline <a href='https://www.w3schools.com/html/'>HTML</a>, huh?*"))
+
+  > xs
+  
+  '((p () "How does markdown handle " (em () "inline " (a ((href "https://www.w3schools.com/html/")) "HTML") ", huh?")))
+#+end_src
+
+Wow, it converts it to xexpressions! That makes sense.
+Going a little further and rendering it to HTML gives us:
+
+#+begin_src racket
+  > (display-xexpr `(html () (head ()) (body () ,@xs)))
+
+  <html>
+    <head></head>
+    <body>
+      <p>
+	How does markdown handle <em>inline <a href="https://www.w3schools.com/html/">HTML</a>, huh?</em>
+      </p>
+    </body>
+  </html>
+#+end_src
+
+Looks good! How about markdown within an HTML element?
+
+#+begin_src racket
+  > (define xs (parse-markdown "How does markdown handle *inline <a href='https://www.w3schools.com/html/'>__HTML__</a>, huh?*"))
+
+  > xs
+
+  '((p () "How does markdown handle " (em () "inline " (a ((href "https://www.w3schools.com/html/")) (strong () "HTML")) ", huh?")))
+  
+  > (display-xexpr `(html () (head ()) (body () ,@xs)))
+
+  <html>
+    <head></head>
+    <body>
+      <p>How does markdown handle <em>inline <a href="https://www.w3schools.com/html/"><strong>HTML</strong></a>, huh?</em>
+      </p>
+    </body>
+  </html>
+#+end_src
+
+Just as we'd expect!
+Let's go with this method.
