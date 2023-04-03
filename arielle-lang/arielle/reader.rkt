@@ -13,14 +13,22 @@
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "abc xyz")))
    '(module arielle-mod arielle/expander (a-program
-                                          (a-paragraph
-                                           (a-expr "abc")
-                                           (a-expr "xyz")))))
+                                          (a-word "abc")
+                                          (a-whitespace " ")
+                                          (a-word "xyz"))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "xyz abc\nwelcome!")))
    '(module arielle-mod arielle/expander (a-program
-                                          (a-paragraph
-                                           (a-expr "xyz")
-                                           (a-expr "abc"))
-                                          (a-paragraph
-                                           (a-expr "welcome!"))))))
+                                          (a-word "xyz")
+                                          (a-whitespace " ")
+                                          (a-word "abc")
+                                          (a-whitespace "\n")
+                                          (a-word "welcome!"))))
+  (check-equal?
+   (syntax->datum (read-syntax "" (open-input-string "@()")))
+   '(module arielle-mod arielle/expander (a-program
+                                          (a-word "xyz")
+                                          (a-whitespace " ")
+                                          (a-word "abc")
+                                          (a-whitespace "\n")
+                                          (a-word "welcome!")))))

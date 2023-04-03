@@ -137,3 +137,80 @@ Looks good! How about markdown within an HTML element?
 
 Just as we'd expect!
 Let's go with this method.
+
+*** What lives in the tokenizer, what lives in the parser?
+We are going to compile =arielle= to html, then pass it along to get compiled as markdown.
+Given that design, how do we divide the work between the tokenizer and the parser?
+
+We really only care about identifying =arielle= expressions.
+Everything else can just get passed along.
+But is there a problem if we mis-tokenize parts of =arielle= expressions out of context?
+For instance, let's say our grammar is this:
+
+#+begin_src racket
+  #lang brag
+  a-program : (a-char | a-expr)*
+  a-char : CHAR
+  a-expr : a-expr-name [a-expr-args] a-expr-body
+  a-expr-name : EXPR-NAME
+  a-expr-args : "(" [EXPR-KEY ":" EXPR-VALUE ","]* EXPR-KEY ":" EXPR-VALUE ")"
+  a-expr-body : EXPR-BODY
+#+end_src
+
+- How do we differentiate =EXPR-NAME= from =EXPR-KEY= in the tokenizer?
+- Should =EXPR-VALUE= be typed some how (uh oh)?
+
+What if we just tokenize everything into whitespace delimited strings.
+Then all of the =EXPR-<whatever>= become =WORD=
+
+#+begin_src racket
+  #lang brag
+  a-program : (a-char | a-expr)*
+  a-char : CHAR
+  a-expr : a-expr-name [a-expr-args] a-expr-body
+  a-expr-name : "$" WORD
+  a-expr-args : "(" [a-arg-key ":" a-arg-value ","]* a-arg-key ":" a-arg-value ")"
+  a-arg-key : WORD
+  a-arg-value : WORD
+  a-expr-body : "{" WORD+ "}"
+#+end_src
+
+This kind of makes sense right?
+We still have the problem where a-arg-value should probably be typed or something, but that sounds like a problem for a future language update.
+
+Wait then we have a problem with what all of the symbols get lexed as...
+I guess they can just get lexed literally and passed on to markdown if they're not part of an =arielle= expression.
+
+Ugh... it's not working.
+
+Really all I want to do is expand =arielle= expressions within markdown and add the associated animation styles to the top of the string.
+That's all!
+What's the simplest way to do that?
+
+Ultimately what do we want the parse tree to look like?
+Maybe something like this:
+
+#+begin_src racket
+  (a-program (a-markdown "<STUFF>")
+	     (a-expr (a-expr-name "<name>")
+		     (a-expr-args (a-arg-key "<key>")
+				  (a-arg-value "<value>")
+				  ...)
+		     (a-expr-body "<STUFF>"))
+	     (a-markdown "<MORE STUFF>"))
+#+end_src
+
+But how do we differentiate the stuff within the =arielle= blocks from stuff in markdown blocks?
+If I wasn't trying to model this as a /"language"/ I would know how to do it...
+Maybe I just handle the =arielle= parsing in the expander.
+Is that crazy?
+Maybe not.
+That way we really can do it like jsonic, but we just have to actually handle the =arielle= expressions instead of letting racket handle them.
+
+I spent some more time trying to actually parse this into usable stuff.
+Let's stop.
+Full jsonic, all the way.
+
+Oh yeah, that doesn't let us nest expressions............................................
+
+What am I going to do?

@@ -1,11 +1,8 @@
 #lang br
 (require brag/support)
+(provide arielle-lexer)
 
 (define arielle-lexer
   (lexer-srcloc
-    ["\n" (token 'NEWLINE lexeme)]
-    [whitespace (token lexeme #:skip? #t)]
-    [(:+ (:or alphabetic numeric "!"))
-     (token 'STRING lexeme)]))
-
-(provide arielle-lexer)
+   [(from/to "@(" ")@") (token 'EXPR (trim-ends "@(" lexeme ")@"))]
+   [any-char (token 'CHAR lexeme)]))
