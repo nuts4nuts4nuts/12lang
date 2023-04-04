@@ -12,14 +12,23 @@
   (define (srcloc-tokens->tokens srcloc-tokens)
     (map (lambda (srcloc-token) (srcloc-token-token srcloc-token))
          srcloc-tokens))
-  (define (str->CHARs str)
-    (map (lambda (char) (token 'CHAR (string char)))
-         (string->list str)))
   (require rackunit)
   [check-equal?
-   (str->CHARs "abc")
+   (list (token 'WORD "abc"))
    (srcloc-tokens->tokens (apply-tokenizer-maker make-tokenizer "abc"))]
   [check-equal?
-   (append (str->CHARs "abc ")
-           (list (token 'EXPR "name body")))
-   (srcloc-tokens->tokens (apply-tokenizer-maker make-tokenizer "abc @(name body)@"))])
+   (list (token 'WORD "abc")
+         (token 'WHITESPACE " ")
+         (token 'AT "@")
+         (token 'WORD "name")
+         (token 'WHITESPACE " ")
+         (token 'WORD "body")
+         (token 'AT "@"))
+   (srcloc-tokens->tokens (apply-tokenizer-maker make-tokenizer "abc @name body@"))]
+  [check-equal?
+   (list (token 'WORD "abc")
+         (token 'WHITESPACE " ")
+         (token 'ESCAPED-AT "\\@")
+         (token 'WHITESPACE " ")
+         (token 'WORD "stuff!"))
+   (srcloc-tokens->tokens (apply-tokenizer-maker make-tokenizer "abc \\@ stuff!"))])

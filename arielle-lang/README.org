@@ -212,5 +212,22 @@ Let's stop.
 Full jsonic, all the way.
 
 Oh yeah, that doesn't let us nest expressions............................................
-
 What am I going to do?
+
+Idea I had this morning:
+
+- Use mirrored delimiters
+- Tokenize to delimiters and words
+- Require escapes for literal delimiters
+
+Obviously I've thought this before, but I think this would work!
+At the expense of breaking existing markdown with unescaped delimiters but whatever.
+I have to finish the damn parser...
+
+WHAT THE FUCK DOES "ENCOUNTERED PARSING ERROR" MEAN!?!?!?!??!?!?!?!?
+
+Guess my whitespace was wrong in the parser...
+
+Note to self: comment out the real parse rule attempt and build up the rule incrementally to debug
+
+I think I can make a programming language out of this!
