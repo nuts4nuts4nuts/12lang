@@ -13,93 +13,77 @@
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "abc xyz")))
    '(module arielle-mod arielle/expander (a-program
-                                          (a-word "abc")
-                                          (a-whitespace " ")
-                                          (a-word "xyz"))))
+                                          (a-literal "abc")
+                                          (a-literal " ")
+                                          (a-literal "xyz"))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "xyz abc\nwelcome!")))
    '(module arielle-mod arielle/expander (a-program
-                                          (a-word "xyz")
-                                          (a-whitespace " ")
-                                          (a-word "abc")
-                                          (a-whitespace "\n")
-                                          (a-word "welcome!"))))
+                                          (a-literal "xyz")
+                                          (a-literal " ")
+                                          (a-literal "abc")
+                                          (a-literal "\n")
+                                          (a-literal "welcome!"))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "@name body@")))
    '(module arielle-mod arielle/expander (a-program
                                           (a-expr
                                            (a-expr-name "name")
-                                           (a-whitespace " ")
-                                           (a-expr-body (a-word "body"))))))
+                                           (a-expr-body (a-literal "body"))))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "@  name body@")))
    '(module arielle-mod arielle/expander (a-program
                                           (a-expr
-                                           (a-whitespace " ")
-                                           (a-whitespace " ")
                                            (a-expr-name "name")
-                                           (a-whitespace " ")
-                                           (a-expr-body (a-word "body"))))))
+                                           (a-expr-body (a-literal "body"))))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "@name arg:val body@")))
    '(module arielle-mod arielle/expander (a-program
                                           (a-expr
                                            (a-expr-name "name")
-                                           (a-whitespace " ")
-                                           (a-expr-args (a-arg-key "arg")
-                                                        (a-arg-value "val"))
-                                           (a-whitespace " ")
-                                           (a-expr-body (a-word "body"))))))
+                                           (a-expr-args "arg"
+                                                        "val")
+                                           (a-expr-body (a-literal "body"))))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "@name arg:val arg2:val2 body@")))
    '(module arielle-mod arielle/expander (a-program
                                           (a-expr
                                            (a-expr-name "name")
-                                           (a-whitespace " ")
-                                           (a-expr-args (a-arg-key "arg")
-                                                        (a-arg-value "val")
-                                                        (a-arg-key "arg2")
-                                                        (a-arg-value "val2"))
-                                           (a-whitespace " ")
-                                           (a-expr-body (a-word "body"))))))
+                                           (a-expr-args "arg"
+                                                        "val"
+                                                        "arg2"
+                                                        "val2")
+                                           (a-expr-body (a-literal "body"))))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "Regular words @name arg:val arg2:val2 body@\nNew line!")))
    '(module arielle-mod arielle/expander (a-program
-                                          (a-word "Regular")
-                                          (a-whitespace " ")
-                                          (a-word "words")
-                                          (a-whitespace " ")
+                                          (a-literal "Regular")
+                                          (a-literal " ")
+                                          (a-literal "words")
+                                          (a-literal " ")
                                           (a-expr
                                            (a-expr-name "name")
-                                           (a-whitespace " ")
-                                           (a-expr-args
-                                            (a-arg-key "arg")
-                                            (a-arg-value "val")
-                                            (a-arg-key "arg2")
-                                            (a-arg-value "val2"))
-                                           (a-whitespace " ")
-                                           (a-expr-body (a-word "body")))
-                                          (a-whitespace "\n")
-                                          (a-word "New")
-                                          (a-whitespace " ")
-                                          (a-word "line!"))))
+                                           (a-expr-args "arg"
+                                                        "val"
+                                                        "arg2"
+                                                        "val2")
+                                           (a-expr-body (a-literal "body")))
+                                          (a-literal "\n")
+                                          (a-literal "New")
+                                          (a-literal " ")
+                                          (a-literal "line!"))))
   (check-equal?
    (syntax->datum (read-syntax "" (open-input-string "@name arg:val arg2:val2 words @nested body@ @")))
    '(module arielle-mod arielle/expander (a-program
                                           (a-expr
                                            (a-expr-name "name")
-                                           (a-whitespace " ")
-                                           (a-expr-args
-                                            (a-arg-key "arg")
-                                            (a-arg-value "val")
-                                            (a-arg-key "arg2")
-                                            (a-arg-value "val2"))
-                                           (a-whitespace " ")
+                                           (a-expr-args "arg"
+                                                        "val"
+                                                        "arg2"
+                                                        "val2")
                                            (a-expr-body
-                                            (a-word "words")
-                                            (a-whitespace " ")
+                                            (a-literal "words")
+                                            (a-literal " ")
                                             (a-expr
                                              (a-expr-name "nested")
-                                             (a-whitespace " ")
-                                             (a-expr-body (a-word "body"))))
-                                           (a-whitespace " "))))))
+                                             (a-expr-body (a-literal "body")))))))))

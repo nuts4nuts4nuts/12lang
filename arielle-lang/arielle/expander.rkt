@@ -3,18 +3,41 @@
 
 (define-macro (arielle-mod PARSE-TREE)
   #'(#%module-begin
-     (define result-string PARSE-TREE)
-     (define validated-jsexpr (string->jsexpr result-string))
-     (display result-string)))
+     (display-xexpr (a-mod PARSE-TREE))))
 (provide (rename-out [arielle-mod #%module-begin]))
 
-(define-macro (jsonic-char CHAR-TOK)
-  #'CHAR-TOK)
-(provide jsonic-char)
+(define-macro (a-mod PARSE-TREE)
+  #'(parse-markdown PARSE-TREE))
+(provide a-mod)
 
-(define-macro (jsonic-program SEXP-OR-JSON-CHAR ...)
-  #'(string-trim (string-append SEXP-OR-JSON-CHAR ...)))
-(provide jsonic-program)
+(define-macro (a-program RESULT-STR ...)
+  #'(string-append RESULT-STR ...))
+(provide a-program)
+
+(define-macro (a-literal STR)
+  #'STR)
+(provide a-literal)
+
+(define-macro (a-escaped-at)
+  #'"@")
+(provide a-escaped-at)
+
+(module+ test
+  (require rackunit)
+  (check-equal?
+   (a-mod (a-program
+           (a-literal "abc")
+           (a-literal " ")
+           (a-literal "xyz")))
+   '((p () "abc xyz")))
+  (check-equal?
+   (a-mod (a-program
+           (a-literal "abc")
+           (a-literal " ")
+           (a-escaped-at)
+           (a-literal " ")
+           (a-literal "xyz")))
+   '((p () "abc @ xyz"))))
 
 (define-macro (jsonic-sexp SEXP-TOK)
   (with-pattern ([SEXP-DATUM (format-datum '~a #'SEXP-TOK)])
