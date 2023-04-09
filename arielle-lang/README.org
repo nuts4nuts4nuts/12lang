@@ -9,7 +9,7 @@ Example:
 
   This is normal markdown with *italics*, **bold**, etc...
 
-  $type{This is arielle getting typed out dynamically with *italics*, **bold**, etc...}
+  @type This is arielle getting typed out dynamically with *italics*, **bold**, etc...@
 #+end_src
 
 ** Background
