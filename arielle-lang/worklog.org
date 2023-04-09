@@ -1,6 +1,6 @@
 * Worklog
 
-This is a working surface and nothing in here should be considered definitive documentation.
+*This is a working surface and nothing in here should be considered documentation.*
 
 ** Parsing
 =AMAL= is supposed to be markdown for the static parts, and use a custom syntax for the dynamic parts.
