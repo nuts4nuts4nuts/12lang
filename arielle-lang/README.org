@@ -30,4 +30,5 @@ This would be a cool birthday present.
 Thus, the =AMAL= language: a language for animated markup.
 (In markdown, for the non-animated parts)
 
-** TODO Design
+** Design
+*TO BE FILLED OUT*
