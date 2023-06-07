@@ -7,6 +7,9 @@
 How can we accomplish that?
 
 *** Parse markdown and then parse =AMAL=
+:PROPERTIES:
+:ID:       696641D3-BAE0-49B9-9D4F-0A6E5CD132CA
+:END:
 We could parse markdown to a tree using the existing [[https://docs.racket-lang.org/markdown/][Racket markdown]] reader, and then re-parse the parse tree, inserting =AMAL= nodes.
 
 Pros:
@@ -49,7 +52,7 @@ Seems like it doesn't really work:
 
 I also tested on [[https://markdownlivepreview.com/]], with the same results. So maybe we just say it isn't possible in =AMAL=? 
 
-In that case we could [[*Parse markdown and then parse =arielle=][Parse markdown and then parse AMAL]].
+In that case we could [[id:696641D3-BAE0-49B9-9D4F-0A6E5CD132CA][Parse markdown and then parse AMAL]]
 That's still kind of nasty though, right?
 We'd rather not parse twice if we can help it.
 
@@ -250,3 +253,12 @@ I don't know if this does anything...
 
 **** a-program
 I guess this runs the markdown parser and prints the whole thing as HTML?
+
+**** Back at it again on <2023-06-06 Tue>
+Maybe we can just splice the a-expr-* forms and handle everything in a-expr?
+Is that inelegant?
+Seems like those subforms only really make sense in the context of a whole expr.
+
+That was pretty easy.
+And a nice way to get myself back into the codebase.
+Thank god for all the tests I wrote.
