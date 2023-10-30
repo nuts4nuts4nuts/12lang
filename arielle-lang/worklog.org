@@ -222,15 +222,15 @@ So we need to implement these macros:
 
 (/NOT/ a-at, a-arg-key, or a-arg-value. All of those are pruned from the parse tree)
 
-**** a-colon, a-whitespace, a-word
+*** a-colon, a-whitespace, a-word
 These are all just passed along literally for markdown parsing
 
 *-> actually I can parse all of these to a-literal!!*
 
-**** a-escaped-at
+*** a-escaped-at
 This becomes an =@= and then is passed along literally
 
-**** a-expr
+*** a-expr
 This is the meat of the language.
 
 We have to:
@@ -239,22 +239,22 @@ We have to:
 2. Wrap =a-expr-body= in some block element that uses the animation
 3. Change any args supplied in =a-expr-args=
 
-***** a-expr-name
+**** a-expr-name
 We try to map this to the library of animations.
 Hopefully throw a helpful error if it can't be mapped.
 
-***** a-expr-args
+**** a-expr-args
 We need to map these either to arguments for the animation in the HTML element,
 or arguments in the keyframes (if that's possible) and change the default values to
 the passed values.
 
-***** a-expr-body
+**** a-expr-body
 I don't know if this does anything...
 
-**** a-program
+*** a-program
 I guess this runs the markdown parser and prints the whole thing as HTML?
 
-**** Back at it again on <2023-06-06 Tue>
+** Back at it again on <2023-06-06 Tue>
 Maybe we can just splice the a-expr-* forms and handle everything in a-expr?
 Is that inelegant?
 Seems like those subforms only really make sense in the context of a whole expr.
@@ -262,3 +262,46 @@ Seems like those subforms only really make sense in the context of a whole expr.
 That was pretty easy.
 And a nice way to get myself back into the codebase.
 Thank god for all the tests I wrote.
+** Back at it again on <2023-10-15 Sun>...
+
+Where were we...
+I want to make this language by the end of the year. That would be cool.
+
+** Evening of <2023-10-29 Sun>
+*** On productivity in this project
+Feeling like one thing that prevents me from making good progress on
+this project is that I don't know the language (Racket) that well.
+Which is true, this is basically (besides the projects in Beautiful Racket) my first Racket project.
+Someone smart once said you should either learn a new tool or do a new project, but it's too hard to do a new project while learning a new tool.
+I don't know. Maybe that's an excuse.
+I think I should stick with this at least until the end of the year.
+But maybe then I should read Crafting Interpreters and write along in C/++.
+Something I know better /and/ arguably more useful.
+*** Parser problems
+I think one of the issues I'm having is that nothing is solid.
+I'm running into issues with my expander, but they seem to stem from the parser.
+I go back and update the parser, but now it doesn't work for reasons I don't really understand.
+It's too abstract to understand.
+I think that's a valid excuse!
+I actually just don't understand it, and the point is for me to understand!
+I'm actually not becoming an expert this way!
+Hmm...
+Or is this just an excuse for changing projects?
+This is definitely not bringing me the joy of the business card project.
+Nor even the make-a-face project.
+
+Okay, the point is understanding.
+The point is learning.
+The point is actually not the product.
+So, to address the immediate issue I need to learn more about how BRAG parses.
+But this is part of the issue, there aren't that many resources on BRAG.
+Or, maybe I need to learn more about how to write a good grammar.
+I'm sure there's a simple way to write my grammar that BRAG wouldn't have a problem with.
+Or even a grammar that I like better (why did I let the implementation difficulty change my grammar?).
+Or maybe my lexer is causing me problems, I don't know.
+The point is, I need to understand better.
+*** End of work
+Man, it just hurts.
+The error messages suck, I don't understand the language, I don't understand the libraries.
+I want to read Crafting Interpreters and write in C.
+Ugh...

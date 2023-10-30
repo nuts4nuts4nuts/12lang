@@ -1,11 +1,6 @@
 #lang brag
-a-program : (a-expr | a-escaped-at | a-literal)*
-a-expr : /a-at /WHITESPACE* @a-expr-name [/WHITESPACE+ a-expr-args] /WHITESPACE+ a-expr-body /WHITESPACE* /a-at
-a-expr-name : WORD
-/a-expr-args : [@a-arg-key /WHITESPACE* /COLON /WHITESPACE* @a-arg-value /WHITESPACE+]* @a-arg-key /WHITESPACE* /COLON /WHITESPACE* @a-arg-value
-/a-expr-body : @a-program
-a-arg-key : WORD
-a-arg-value : WORD
-a-at : AT
-a-escaped-at : /ESCAPED-AT
-a-literal : WHITESPACE | WORD | COLON
+a-program : (a-expr | WORD | WHITESPACE | COLON | ESCAPED-OPEN-AMAL | ESCAPED-COLON)*
+
+a-expr : OPEN-AMAL WORD WHITESPACE* [@a-args] WHITESPACE* @a-body CLOSE-PAREN
+a-args : (WORD WHITESPACE* COLON WHITESPACE* WORD)+
+a-body : /a-program

@@ -1,15 +1,17 @@
 * AMAL language
 ** Overview
-The premise of the AMAL language, is to wrap markdown with markup for animations.
+The premise of the AMAL language, is to wrap Markdown with markup for animations.
 
 Example:
 
-#+begin_src markdown
-  # This is markdown. (this is a header)
+#+begin_src Markdown
+  # This is Markdown. (this is a header)
 
-  This is normal markdown with *italics*, **bold**, etc...
+  This is normal Markdown with *italics*, **bold**, etc...
 
-  @type This is AMAL getting typed out dynamically with *italics*, **bold**, etc...@
+  @(type This is AMAL getting typed out dynamically with *italics*, **bold**, etc...)
+
+  @(type speed:0.5 This is AMAL getting typed out ~ s l o w e r ~ thanks to the overriden speed parameter)
 #+end_src
 
 ** Background
@@ -27,8 +29,15 @@ Still, the idea has stuck in my head.
 Why shouldn't there be an ergonomic way to insert animations into website markup?
 Her birthday is coming up, and I always try to make something for her for her birthday.
 This would be a cool birthday present.
-Thus, the =AMAL= language: a language for animated markup.
-(In markdown, for the non-animated parts)
+Thus, the ~AMAL~ language: a language for animated markup.
+(In Markdown, for the non-animated parts)
 
 ** Design
-*TO BE FILLED OUT*
+
+In ~AMAL~, we just want to pass most text on to the Markdown renderer.
+All text that doesn't appear in an ~AMAL~ block: ~@(<name> <args?> <body>)~.
+Within an ~AMAL~ block, we treat the first string as the name of the animation to use,
+there is an optional argument block, and then there is the body of the text to be animated.
+
+If for some reason you'd like to type ~@(~ without creating an ~AMAL~ block,
+you have to prefix it with a backslash, like ~\@(~.

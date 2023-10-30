@@ -22,6 +22,9 @@
   #'"@")
 (provide a-escaped-at)
 
+(define-macro (a-expr NAME ARGS-AND-BODY ...)
+  )
+
 (module+ test
   (require rackunit)
   (check-equal?
